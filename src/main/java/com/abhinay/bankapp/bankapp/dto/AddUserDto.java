@@ -1,25 +1,14 @@
 package com.abhinay.bankapp.bankapp.dto;
 
-public class GetUsersDto {
-    private String id;
+public class AddUserDto {
     private String username;
     private String phoneNumber;
+    private String password;
 
-    public GetUsersDto() {
-    }
-
-    public GetUsersDto(String id, String username, String phoneNumber) {
-        this.id = id;
+    public AddUserDto(String username, String password, String phoneNumber) {
         this.username = username;
+        this.password = password;
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -28,6 +17,14 @@ public class GetUsersDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhoneNumber() {
@@ -40,11 +37,10 @@ public class GetUsersDto {
 
     @Override
     public String toString() {
-        return "GetUsersDto{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
+        return "AddUserDto{" +
+                "username='" + username + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
-

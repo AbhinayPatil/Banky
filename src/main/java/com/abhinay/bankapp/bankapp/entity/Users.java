@@ -17,16 +17,26 @@ public class Users {
     @NotNull(message = "Username cannot be null")
     private String username;
 
+    @Column(name = "phone_number", nullable = false,unique = true)
+    @NotNull(message = "Phone Number cannot be null")
+    private String phoneNumber;
+
     @Column(name = "password", nullable = false)
     @NotNull(message = "Password cannot be null")
     private String password;
 
+    @Column(name = "delete_flag", nullable = false)
+    @NotNull(message = "Delete flag must have a value")
+    private String deleteFlag="F";
+
     public Users() {
     }
 
-    public Users(long id, String username, String password) {
+    public Users(long id, String deleteFlag, String username, String phoneNumber, String password) {
         this.id = id;
+        this.deleteFlag = deleteFlag;
         this.username = username;
+        this.phoneNumber = phoneNumber;
         this.password = password;
     }
 
@@ -46,6 +56,14 @@ public class Users {
         this.username = username;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -54,12 +72,22 @@ public class Users {
         this.password = password;
     }
 
+    public String getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
+                ", deleteFlag='" + deleteFlag + '\'' +
                 '}';
     }
 }

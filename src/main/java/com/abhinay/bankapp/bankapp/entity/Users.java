@@ -27,7 +27,7 @@ public class Users {
 
     @Column(name = "delete_flag", nullable = false)
     @NotNull(message = "Delete flag must have a value")
-    private String deleteFlag="F";
+    private String deleteFlag="N";
 
     public Users() {
     }

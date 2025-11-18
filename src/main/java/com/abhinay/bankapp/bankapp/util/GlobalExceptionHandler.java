@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApplicationResponse> handleGenericException(Exception ex) {
         ApplicationResponse response = new ApplicationResponse();
-        System.out.println("DataIntegrity Exception: " + ex.getMessage());
+        System.out.println("Something went wrong: " + ex.getMessage());
         response.setMessage("Something went wrong");
         response.setStatus("FAIL");
         return ResponseEntity.status(500).body(response); // 500 Internal Server Error

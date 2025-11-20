@@ -2,13 +2,16 @@ package com.abhinay.bankapp.bankapp.service;
 
 import com.abhinay.bankapp.bankapp.dto.AddUserDto;
 import com.abhinay.bankapp.bankapp.dto.GetUsersDto;
+import com.abhinay.bankapp.bankapp.dto.PaginatedDto;
 import com.abhinay.bankapp.bankapp.util.CustomDuplicatePhoneException;
 import com.abhinay.bankapp.bankapp.util.SecurePasswordHasher;
 import com.abhinay.bankapp.bankapp.util.UserMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import com.abhinay.bankapp.bankapp.repository.UserRepository;
@@ -28,9 +31,21 @@ public class UserService {
     }
 
 
-    public List<GetUsersDto> getAllUsers() {
-        List<Users> users = userRepository.findAll();
-        return userMapper.toDto(users);
+    public PaginatedDto getAllUsers(int pageNumber, int pageSize) throws Exception {
+        PaginatedDto paginatedDto = new PaginatedDto();
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Users> users = userRepository.findAll(pageable);
+
+        List<GetUsersDto> getUsersDto = userMapper.toDto(users.getContent());
+        int totalPages = users.getTotalPages();
+        long totalElements = users.getTotalElements();
+
+        paginatedDto.setData(getUsersDto);
+        paginatedDto.setTotalPages(totalPages);
+        paginatedDto.setTotalElements(totalElements);
+        paginatedDto.setCurrentPage(pageNumber);
+
+        return paginatedDto;
     }
 
     @Transactional

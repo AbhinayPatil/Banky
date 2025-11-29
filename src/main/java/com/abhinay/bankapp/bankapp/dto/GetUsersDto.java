@@ -2,16 +2,20 @@ package com.abhinay.bankapp.bankapp.dto;
 
 public class GetUsersDto {
     private String id;
-    private String username;
+    private String email;
     private String phoneNumber;
+    private String name;
+    private String accountNumber;
 
     public GetUsersDto() {
     }
 
-    public GetUsersDto(String id, String username, String phoneNumber) {
+    public GetUsersDto(String id, String email, String phoneNumber, String name, String accountNumber) {
         this.id = id;
-        this.username = username;
+        this.email = email;
         this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.accountNumber = accountNumber;
     }
 
     public String getId() {
@@ -22,12 +26,12 @@ public class GetUsersDto {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneNumber() {
@@ -38,13 +42,20 @@ public class GetUsersDto {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public String toString() {
-        return "GetUsersDto{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 }
 

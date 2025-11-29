@@ -10,10 +10,15 @@
 //import jakarta.servlet.ServletException;
 //import java.io.IOException;
 //import java.nio.charset.StandardCharsets;
+//import java.util.Set;
 //
 //
 //@Component
 //public class EncryptionFilter extends OncePerRequestFilter {
+//
+//    private static final Set<String> EXCLUDE_PREFIXES = Set.of("/h2-console", "/swagger-ui", "/v3/api-docs");
+//    private static final Set<String> EXCLUDE_EXTENSIONS = Set.of(".css", ".js", ".png", ".jpg", ".svg", ".ico", ".woff", ".woff2");
+//
 //
 //    @Override
 //    protected void doFilterInternal(HttpServletRequest request,
@@ -21,7 +26,7 @@
 //                                    FilterChain filterChain) throws ServletException, IOException {
 //
 //        String path = request.getRequestURI();
-//        if (path.startsWith("/h2-console/**")) {
+//        if (shouldSkip(path)) {
 //            filterChain.doFilter(request, response);
 //            return;
 //        }
@@ -51,5 +56,15 @@
 //        // Write encrypted response
 //        response.getWriter().write(encryptedResponse);
 //
+//    }
+//    private boolean shouldSkip(String uri) {
+//        if (uri == null) return false;
+//        for (String p : EXCLUDE_PREFIXES) {
+//            if (uri.startsWith(p)) return true;
+//        }
+//        for (String ext : EXCLUDE_EXTENSIONS) {
+//            if (uri.endsWith(ext)) return true;
+//        }
+//        return false;
 //    }
 //}

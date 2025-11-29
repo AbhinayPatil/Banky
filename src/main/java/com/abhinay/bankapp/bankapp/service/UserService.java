@@ -31,22 +31,6 @@ public class UserService {
     }
 
 
-    public PaginatedDto getAllUsers(int pageNumber, int pageSize) throws Exception {
-        PaginatedDto paginatedDto = new PaginatedDto();
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        Page<Users> users = userRepository.findAll(pageable);
-
-        List<GetUsersDto> getUsersDto = userMapper.toDto(users.getContent());
-        int totalPages = users.getTotalPages();
-        long totalElements = users.getTotalElements();
-
-        paginatedDto.setData(getUsersDto);
-        paginatedDto.setTotalPages(totalPages);
-        paginatedDto.setTotalElements(totalElements);
-        paginatedDto.setCurrentPage(pageNumber);
-
-        return paginatedDto;
-    }
 
     @Transactional
     public void addUser(AddUserDto input) {

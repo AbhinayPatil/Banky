@@ -13,9 +13,13 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "username", nullable = false, unique = true)
-    @NotNull(message = "Username cannot be null")
-    private String username;
+    @Column(name = "email", nullable = false, unique = true)
+    @NotNull(message = "email cannot be null")
+    private String email;
+
+    @Column(name = "name", nullable = false, unique = true)
+    @NotNull(message = "name cannot be null")
+    private String name;
 
     @Column(name = "phone_number", nullable = false,unique = true)
     @NotNull(message = "Phone Number cannot be null")
@@ -29,15 +33,26 @@ public class Users {
     @NotNull(message = "Delete flag must have a value")
     private String deleteFlag="N";
 
+    @Column(name = "role", nullable = false)
+    @NotNull(message = "Role must have a value")
+    private String role="User";
+
+    @Column(name = "account_number", nullable = false)
+    @NotNull(message = "Account number must have a value")
+    private String accountNumber;
+
     public Users() {
     }
 
-    public Users(long id, String deleteFlag, String username, String phoneNumber, String password) {
+    public Users(long id, String email, String name, String phoneNumber, String password, String deleteFlag, String role, String accountNumber) {
         this.id = id;
-        this.deleteFlag = deleteFlag;
-        this.username = username;
+        this.email = email;
+        this.name = name;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.deleteFlag = deleteFlag;
+        this.role = role;
+        this.accountNumber = accountNumber;
     }
 
     public long getId() {
@@ -48,12 +63,20 @@ public class Users {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhoneNumber() {
@@ -80,14 +103,33 @@ public class Users {
         this.deleteFlag = deleteFlag;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
                 ", deleteFlag='" + deleteFlag + '\'' +
+                ", role='" + role + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
                 '}';
     }
 }

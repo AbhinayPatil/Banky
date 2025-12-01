@@ -1,9 +1,12 @@
 package com.abhinay.bankapp.bankapp.controller;
 
+import com.abhinay.bankapp.bankapp.dto.AddUserDto;
 import com.abhinay.bankapp.bankapp.dto.LoginReqDto;
 import com.abhinay.bankapp.bankapp.dto.JwtResponse;
 import com.abhinay.bankapp.bankapp.entity.Users;
 import com.abhinay.bankapp.bankapp.repository.UserRepository;
+import com.abhinay.bankapp.bankapp.service.UserService;
+import com.abhinay.bankapp.bankapp.util.ApplicationResponse;
 import com.abhinay.bankapp.bankapp.util.JwtUtil;
 import com.abhinay.bankapp.bankapp.util.SecurePasswordHasher;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +21,15 @@ public class LoginController {
     private final UserRepository userRepository;
     private final SecurePasswordHasher securePasswordHasher;
     private final JwtUtil jwtUtil;
+    private final UserService userService;
 
     public LoginController(UserRepository userRepository,
                           SecurePasswordHasher securePasswordHasher,
-                          JwtUtil jwtUtil) {
+                          JwtUtil jwtUtil, UserService userService) {
         this.userRepository = userRepository;
         this.securePasswordHasher = securePasswordHasher;
         this.jwtUtil = jwtUtil;
+        this.userService = userService;
     }
 
     @PostMapping("/login")
@@ -45,5 +50,14 @@ public class LoginController {
 
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<ApplicationResponse> login(@RequestBody AddUserDto input) {
+        ApplicationResponse applicationResponse = new ApplicationResponse();
+        userService.addUser(input);
+        applicationResponse.setMessage("User added successfully");
+        applicationResponse.setStatus("SUCCESS");
+        return ResponseEntity.ok(applicationResponse);
     }
 }
